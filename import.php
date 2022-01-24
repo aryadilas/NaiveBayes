@@ -66,7 +66,12 @@ if($_FILES["import_excel"]["name"] != '') {
                         echo "n(Ci) = n(".array_values(array_unique($kelas))[$a].") = ".array_count_values($kelas)[array_values(array_unique($kelas))[$a]]." Kali<br>";
                     }
                     echo "n(C) = n(RecordKelas) = ".(count($data)-1)." Kali
-                </p>    
+                </p>
+                <b>";
+                for($a=0;$a<count(array_unique($kelas));$a++){
+                    echo "<h3 style=\"text-align:left;\">P(".array_values(array_unique($kelas))[$a].") = n(".array_values(array_unique($kelas))[$a].") / n(RecordKelas) = ".array_count_values($kelas)[array_values(array_unique($kelas))[$a]]."/".(count($data)-1)."</h3>";
+                }
+            echo "</b>    
             </div>
         ";
         

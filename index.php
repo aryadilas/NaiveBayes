@@ -68,6 +68,20 @@
 				</div>
 			</div>
 			<span id="tbl_dt_train" style="display:block;"></span><br><br>
+			
+				<!-- <div style="border:1px solid black;width: fit-content;padding: 15px;margin: auto;border-radius: 10px;">
+	                <h3 style="font-family: 'Poppins', sans-serif;font-weight: 500;">Jumlah dan probabilitas kelas pada data training</h3>
+	                
+	                <p style="text-align:left;">n(Ci) = n(PROMOSI) = 15 Kali<br>n(Ci) = n(MUTASI) = 12 Kali<br>n(Ci) = n(PHK) = 6 Kali<br>n(C) = n(RecordKelas) = 33 Kali<br><br>
+	                Maka, P(Ci) = n(Ci) / n(C)
+	            	</p>
+	            	<b><h3 style="text-align:left;">P(PROMOSI) = n(PROMOSI) / n(RecordKelas) = 15/33</h3>
+	            	<h3 style="text-align:left;">P(MUTASI) = n(MUTASI) / n(RecordKelas) = 12/33</h3>
+	            	<h3 style="text-align:left;">P(PHK) = n(PHK) / n(RecordKelas) = 6/33</h3>
+	            	</b>
+
+
+	            </div> -->
 		</main>
 	</body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
