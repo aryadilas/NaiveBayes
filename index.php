@@ -1,28 +1,18 @@
 <!DOCTYPE html>
 <html lang="id">
 	<head>
-		<link rel="stylesheet" type="text/css" href="assets/css/style.css" />
-		<!-- <link rel="icon" type="image/png" href="assets/image/icon.png" />
-		<link rel="apple-touch-icon" sizes="120x120" href="assets/image/apple-touch-icon-120x120-precomposed.png" />
+		<!-- <link rel="stylesheet" type="text/css" href="assets/css/style.css" /> -->
+		<link rel="icon" type="image/png" href="assets/images/thom.png" />
+		<!-- <link rel="apple-touch-icon" sizes="120x120" href="assets/image/apple-touch-icon-120x120-precomposed.png" />
 		<link rel="apple-touch-icon" sizes="152x152" href="assets/image/apple-touch-icon-152x152-precomposed.png" /> -->
     	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta http-equiv="Content-Type" content="Text/html; charset=utf-8" />
-			<title></title>
-			<meta name="title" content="" />
+			<title>Naive Bayes</title>
+			<meta name="title" content="Naive Bayes" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap" rel="stylesheet">
-		<!-- <meta name="description" content="Sistem Akademik TK Satu Atap Kenanga,Tk Satu Atap Kenanga Adalah Sekolah Swasta Yang Berada Di Cilegon Banten,Ini Adalah Halaman Awal Untuk Sistem Akademik tk satu atap kenanga" />
-		<meta name="keyword" content="tk satu atap kenanga,taman kanak-kanak satu atap kenanga,satu atap kenanga kindergarten,tk cilegon,tk satu atap kenanga cilegon,satu atap kenanga kindergarten,tk cilegon banten,tk satu atap kenanga cilegon banten" />
-		<meta name="robots" content="index,follow" />
-	 	<meta name="googlebot" content="index,follow" />
-	 	<meta property="og:title" content="Login Page - Sistem Akademik TK Satu Atap Kenanga Cilegon">
-		<meta property="og:description" content="Sistem Akademik TK Satu Atap Kenanga,Tk Satu Atap Kenanga Adalah Sekolah Swasta Yang Berada Di Cilegon Banten,Ini Adalah Halaman Awal Untuk Sistem Akademik tk satu atap kenanga" />
-		<meta property="og:type" content="website">
-		<link rel="canonical" href="https://satuatap-kenanga.com" />
-	    <link rel="preconnect" href="https://fonts.gstatic.com" />
-		<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" /> -->
 	</head>
 	<style type="text/css">
 		html, body, main {
@@ -34,15 +24,15 @@
 	<body style="background-color: #fff;text-align: center; font-family: 'Poppins', sans-serif; height: 100%;">
 		<main class="index" >
 			
-			<div style="display: flex; flex-direction: column; justify-content: space-evenly; height: 100%;">
+			<div id="awal" style="display: flex; flex-direction: column; justify-content: space-evenly; height: 100%;">
 				<div style="margin: auto;"></div>
 				<div style="margin: auto;">
 					<h3 style="font-family: 'Poppins', sans-serif;font-weight: 500;">NAIVE BAYES CLASSIFIER</h3><br>
 					<div>
 						<form method="post" id="import_excel_form" enctype="multipart/form-data" >
-							<input id="trainUp" style="background-color: #f5f8fa; color: #9699A8; border-radius: 10px; padding: 5px 20px;border: none;outline: none; width: 400px; height: 25px; font-size: 12px; cursor: pointer; font-family: 'Poppins', sans-serif;" type="text" name="training_path" placeholder="Pilih Data Training" onclick="document.getElementById('training_up').click();" onchange="change();">
+							<input id="trainUp" style="background-color: #f5f8fa; color: #000; border-radius: 10px; padding: 5px 20px;border: none;outline: none; width: 400px; height: 25px; font-size: 12px; cursor: pointer; font-family: 'Poppins', sans-serif;" type="text" name="training_path" placeholder="Pilih Data Training" onclick="document.getElementById('training_up').click();"  readonly>
 							<!-- <input style="background-color: #009ef7; color: #fff; font-size: 12px; height: 35px; width: 100px;  border-radius: 10px; padding: 5px; border: none; cursor: pointer;" type="submit" name="training_up" value="Upload"> -->
-							<input style="display: none;" type="file" id="training_up" name="import_excel" value="Upload">
+							<input style="display: none;" type="file" id="training_up" name="import_excel" value="Upload" onchange="change();">
 							<button type="submit" id="btnfile" style="background-color: #009ef7; color: #fff; font-size: 12px; height: 35px; width: 100px; border-radius: 10px; padding: 5px; border: none; cursor: pointer; display: inline-flex; justify-content: space-evenly; text-align: center;" >
 								<p style="margin-top: auto; margin-bottom: auto; font-family: 'Poppins', sans-serif;">Upload</p>
 
@@ -86,13 +76,11 @@
 	</body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 	<script type="text/javascript">
-		/*function change(){
-				if( document.getElementById('training_up').files.length === 0 ){
-		    		console.log('no files selected');
-				} else {
-					$('#trainUp').val(document.getElementById('training_up').files.item(0).name);
+		function change(){
+				if( document.getElementById('training_up').files.length !== 0 ){
+		    		$('#trainUp').val(document.getElementById('training_up').files.item(0).name);
 				}
-			}*/
+			}
 		$(document).ready(function(){
 
 		  $('#import_excel_form').on('submit', function(event){
@@ -114,6 +102,8 @@
 		        $('#import_excel_form')[0].reset();
 		        $('#import').attr('disabled', false);
 		        $('#import').val('Import');
+		        $("html, body").animate({scrollTop: $('#awal').height()+50},1000);
+		        //$("html, body").animate({ scrollTop: "300px" });
 		      }
 		    })
 		  });
