@@ -67,75 +67,7 @@
 					</div>
 				</div>
 			</div>
-			<span id="message" style="display:block;"></span>
-
-			<!-- <div style="display: flex; flex-direction: column; justify-content: space-evenly; height: 100%;">
-				
-				<div style="width: 90%; margin: 5%;  border-radius: 15px; padding:10px;box-shadow: 0px 6px 19px -9px rgba(0,0,0,0.56);">
-					<p style="margin-bottom: 50px;">Data Training</p>
-					<table style="width: 100%;font-size: 12px; font-weight: 500;border-collapse: collapse;">
-						<tr style="height: 35px; ">
-							<th>NO</th>
-							<th>Nama</th>
-							<th>Masa Kerja</th>
-							<th>Usia</th>
-							<th>Nilai Pelatihan</th>
-							<th>Nilai Kerja</th>
-							<th>Hasil Evaluasi</th>
-						</tr>
-						<tr style="height: 35px;background-color: #f5f8fa;">
-							<td>1</td>
-							<td style="text-align: left;padding-left: 15px;">ALI TOPAN</td>
-							<td>JUNIOR</td>
-							<td>MUDA</td>
-							<td>BAIK</td>
-							<td>SANGAT BAIK</td>
-							<td>PROMOSI</td>
-						</tr>
-						<tr style="height: 35px;">
-							<td>2</td>
-							<td style="text-align: left;padding-left: 15px;">SARTIKA</td>
-							<td>SUPERVISOR</td>
-							<td>MUDA</td>
-							<td>SANGAT BAIK</td>
-							<td>KURANG</td>
-							<td>PROMOSI</td>
-						</tr>
-						<tr style="height: 35px;background-color: #f5f8fa;">
-							<td>3</td>
-							<td style="text-align: left;padding-left: 15px;">MIKA</td>
-							<td>JUNIOR</td>
-							<td>MUDA</td>
-							<td>SANGAT BAIK</td>
-							<td>SANGAT BAIK</td>
-							<td>MUTASI</td>
-						</tr>
-						<tr style="height: 35px;">
-							<td>4</td>
-							<td style="text-align: left;padding-left: 15px;">RUBY</td>
-							<td>JUNIOR</td>
-							<td>MUDA</td>
-							<td>BAIK</td>
-							<td>SANGAT BAIK</td>
-							<td>PROMOSI</td>
-						</tr>
-						<tr style="height: 35px;background-color: #f5f8fa;">
-							<td>5</td>
-							<td style="text-align: left;padding-left: 15px;">BIAN UTAMI</td>
-							<td>SUPERVISOR</td>
-							<td>PARUBAYA</td>
-							<td>KURANG</td>
-							<td>SANGAT BAIK</td>
-							<td>MUTASI</td>
-						</tr>
-					</table>
-				</div>
-			</div> -->
-
-
-
-
-
+			<span id="tbl_dt_train" style="display:block;"></span><br><br>
 		</main>
 	</body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
@@ -164,7 +96,7 @@
 		      },
 		      success:function(data)
 		      {
-		        $('#message').html(data);
+		        $('#tbl_dt_train').html(data);
 		        $('#import_excel_form')[0].reset();
 		        $('#import').attr('disabled', false);
 		        $('#import').val('Import');
