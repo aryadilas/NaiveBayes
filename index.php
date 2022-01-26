@@ -72,6 +72,31 @@
 
 
 	            </div> -->
+	        <!-- <div style="display: flex;justify-content: space-evenly;flex-direction: column;min-height: 100%;">
+	        	<div style="display: flex;justify-content: space-evenly;">
+	        		<style type="text/css">.tbProbAC, .tbProbAC td, .tbProbAC th {border: 1px solid black;font-size: 12px;font-weight: 500;padding: 0px 30px;}</style>
+	        		<table class="tbProbAC" style="border-collapse: collapse;min-width: 20%;">
+	        			<tr><th>MASA KERJA</th><th colspan="3">KEMUNCULAN</th></tr>
+	        			<tr><th>P(Ai|Ci)</th><th>n(Ai)</th><th>n(Ai)/n(Ci)</th></tr>
+	        			<tr><td>JUNIOR | PROMOSI</td><td>3</td><td>3/15</td></tr>
+	        			<tr><td>JUNIOR | MUTASI</td><td>3</td><td>3/15</td></tr>
+	        			<tr><td>JUNIOR | PROMOSI</td><td>3</td><td>3/15</td></tr>
+	        			<tr><td>JUNIOR | MUTASI</td><td>3</td><td>3/15</td></tr>
+	        			<tr><td>JUNIOR | PROMOSI</td><td>3</td><td>3/15</td></tr>
+	        			<tr><td>JUNIOR | MUTASI</td><td>3</td><td>3/15</td></tr>
+	        		</table>
+	        		<table class="tbProbAC" style="border-collapse: collapse;min-width: 20%;">
+	        			<tr><th>MASA KERJA</th><th colspan="3">KEMUNCULAN</th></tr>
+	        			<tr><th>P(Ai|Ci)</th><th>n(Ai)</th><th>n(Ai)/n(Ci)</th></tr>
+	        			<tr><td>JUNIOR | PROMOSI</td><td>3</td><td>3/15</td></tr>
+	        			<tr><td>JUNIOR | MUTASI</td><td>3</td><td>3/15</td></tr>
+	        			<tr><td>JUNIOR | PROMOSI</td><td>3</td><td>3/15</td></tr>
+	        			<tr><td>JUNIOR | MUTASI</td><td>3</td><td>3/15</td></tr>
+	        			<tr><td>JUNIOR | PROMOSI</td><td>3</td><td>3/15</td></tr>
+	        			<tr><td>JUNIOR | MUTASI</td><td>3</td><td>3/15</td></tr>
+	        		</table>
+	        	</div>
+	        </div> -->
 		</main>
 	</body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
