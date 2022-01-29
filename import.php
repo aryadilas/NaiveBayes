@@ -6,6 +6,7 @@ include 'vendor/autoload.php';
 
 //$connect = new PDO("mysql:host=localhost;dbname=testing", "root", "");
 
+
 if(isset($_FILES["import_excel_dtr"]["name"]) != '') {
     $allowed_extension = array('xls', 'csv', 'xlsx');
     $file_array = explode(".", $_FILES["import_excel_dtr"]["name"]);
@@ -99,7 +100,9 @@ if(isset($_FILES["import_excel_dtr"]["name"]) != '') {
                                             }
                                         }
                                     }
-                                    echo "<tr><td style='text-align:left;'>".array_values(array_unique(${"attr$a"}))[$at]." | ".array_values(array_unique($kelas))[$kl]."</td><td>".$muncul."</td><td>".$muncul."/".array_count_values($kelas)[array_values(array_unique($kelas))[$kl]]."</td></tr>";    
+                                    echo "<tr><td style='text-align:left;'>".array_values(array_unique(${"attr$a"}))[$at]." | ".array_values(array_unique($kelas))[$kl]."</td><td>".$muncul."</td><td>".$muncul."/".array_count_values($kelas)[array_values(array_unique($kelas))[$kl]]."</td></tr>";
+                                    ${"p$a$at$kl"} = $muncul."/".array_count_values($kelas)[array_values(array_unique($kelas))[$kl]];
+                                    
                                 }
                             }
                         echo "</table>";
@@ -111,28 +114,57 @@ if(isset($_FILES["import_excel_dtr"]["name"]) != '') {
             }
         }
         echo "</div>";
+        for ($a=0; $a < count($attrTitle); $a++) { 
+            if ($a !== 0 && $a !== count($attrTitle)-1) {
+                for ($at=0; $at < count(array_unique(${"attr$a"})); $at++) { 
+                    for ($kl=0; $kl < count(array_unique($kelas)); $kl++) {
+                        var_dump(${"p$a$at$kl"});
+                    }
+                }
+            }
+            echo "<br>";
+        }
+        /*echo "<div id=\"akhir\" style=\"height: 20%;justify-content: center;display: none;\">
+                <form method=\"post\" id=\"import_excel_dts\" enctype=\"multipart/form-data\" style=\"margin: auto;\">
+                    <input id=\"testUp\" style=\"background-color: #f5f8fa; color: #000; border-radius: 10px; padding: 5px 20px;border: none;outline: none; width: 400px; height: 25px; font-size: 12px; cursor: pointer; font-family: 'Poppins', sans-serif;\" type=\"text\" name=\"testing_path\" placeholder=\"Pilih Data Testing\" onclick=\"document.getElementById('testing_up').click();\"  readonly>
+                    <!-- <input style=\"background-color: #009ef7; color: #fff; font-size: 12px; height: 35px; width: 100px;  border-radius: 10px; padding: 5px; border: none; cursor: pointer;\" type=\"submit\" name=\"training_up\" value=\"Upload\"> -->
+                    <input style=\"display: none;\" type=\"file\" id=\"testing_up\" name=\"import_excel_dts\" value=\"Upload\" onchange=\"changeTs();\">
+                    <button type=\"submit\" id=\"btnfile\" style=\"background-color: #009ef7; color: #fff; font-size: 12px; height: 35px; width: 100px; border-radius: 10px; padding: 5px; border: none; cursor: pointer; display: inline-flex; justify-content: space-evenly; text-align: center;\" >
+                        <p style=\"margin-top: auto; margin-bottom: auto; font-family: 'Poppins', sans-serif;\">Upload</p>
 
+                        <svg style=\"margin-top: auto; margin-bottom: auto;\" width=\"25\" height=\"25\" viewBox=\"0 0 49 49\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"> <path opacity=\"0.9\" d=\"M10.2084 32.6667C6.73754 32.6667 4.08337 30.0125 4.08337 26.5417C4.08337 23.0709 6.73754 20.4167 10.2084 20.4167H10.4125C10.2084 19.8042 10.2084 18.9875 10.2084 18.375C10.2084 12.6584 14.7 8.16669 20.4167 8.16669C24.2959 8.16669 27.5625 10.2084 29.1959 13.2709C30.2167 12.6584 31.4417 12.25 32.6667 12.25C36.1375 12.25 38.7917 14.9042 38.7917 18.375C38.7917 19.1917 38.5875 19.8042 38.3834 20.4167C38.5875 20.4167 38.5875 20.4167 38.7917 20.4167C42.2625 20.4167 44.9167 23.0709 44.9167 26.5417C44.9167 30.0125 42.2625 32.6667 38.7917 32.6667H10.2084ZM16.3334 27.7667H32.6667L25.9292 21.0292C25.1125 20.2125 23.8875 20.2125 23.0709 21.0292L16.3334 27.7667Z\" fill=\"white\"/> <path d=\"M22.4584 27.7667V38.7917C22.4584 40.0167 23.275 40.8333 24.5 40.8333C25.725 40.8333 26.5417 40.0167 26.5417 38.7917V27.7667H22.4584Z\" fill=\"white\"/> </svg>
+                    </button>
+                </form>
+            </div>";*/
         
-    } 
-}
+    }
 
-if(isset($_FILES["import_excel_dts"]["name"]) != '') {
+
+
+
+
+// ------------------------------ Perhitungan Data Training
+
+
+
+
+
     $allowed_extension = array('xls', 'csv', 'xlsx');
     $file_array = explode(".", $_FILES["import_excel_dts"]["name"]);
     $file_extension = end($file_array);
 
     if(in_array($file_extension, $allowed_extension)) {
         $file_name = time() . '.' . $file_extension;
-        move_uploaded_file($_FILES['import_excel_dts']['tmp_name'], $file_name);
+        move_uploaded_file($_FILES["import_excel_dts"]['tmp_name'], $file_name);
         $file_type = \PhpOffice\PhpSpreadsheet\IOFactory::identify($file_name);
         $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($file_type);
         $spreadsheet = $reader->load($file_name);
         unlink($file_name);
-        $data = $spreadsheet->getActiveSheet()->toArray();
+        $dataT = $spreadsheet->getActiveSheet()->toArray();
         $i = 0;
-        $attrTitle = array();
-        $kelas = array();
-        foreach($data as $row) {
+        $frst_col = array();
+
+        foreach($dataT as $row) {
             if ($i == 0) {
                 echo "<br><br><div style=\"display: flex; flex-direction: column; justify-content: space-evenly; height: 100%;\">
                         <div style=\"width: 90%; margin: 5%;  border-radius: 15px; padding:10px;box-shadow: 0px 6px 19px -9px rgba(0,0,0,0.56);\">
@@ -154,15 +186,19 @@ if(isset($_FILES["import_excel_dts"]["name"]) != '') {
                 echo "<td>".$i."</td>";
                 for ($y=0; $y < count($row); $y++) { 
                     echo "<td>".$row[$y]."</td>";
+                    if ($y == 0) {
+                        $frst_col[count($frst_col)] = $row[$y];
+                    }
+
                     
                     if ($y == count($row)-1) {
-                        $kelas[count($kelas)] = $row[$y];
+                        //$kelas[count($kelas)] = $row[$y];
                     } else {
                         $nmAttr = $y;
-                        if (empty(${"attr$nmAttr"})) {
-                            ${"attr$nmAttr"} = array();    
+                        if (empty(${"attrTr$nmAttr"})) {
+                            ${"attrTr$nmAttr"} = array();    
                         }
-                        ${"attr$nmAttr"}[count(${"attr$nmAttr"})] = $row[$y];    
+                        ${"attrTr$nmAttr"}[count(${"attrTr$nmAttr"})] = $row[$y];    
                     }
                 }
                 echo "</tr>";
@@ -172,8 +208,81 @@ if(isset($_FILES["import_excel_dts"]["name"]) != '') {
         echo "</table>
             </div>
         </div><br>";
+        //var_dump($attrKl1);
+        //session_start();
+        echo "
+        <div style=\"width: fit-content;padding: 15px;margin: auto;border-radius: 10px;\">
+                <style type=\"text/css\">.calcTesting, .calcTesting td, .calcTesting th {border: 1px solid black;font-size: 12px;font-weight: 500;padding: 0px 20px;}</style>
+                <table class=\"calcTesting\" style=\"border: 1px solid black;border-collapse: collapse;min-width: 20%;\">";
+                for ($i=0; $i < count($dataT)-1; $i++) { 
+                    echo "<tr>
+                        <td rowspan='".count(array_unique($kelas))."'>".$frst_col[$i]."</td>
+                        <td style='text-align:left;'> P (";
+                            for ($x=0; $x < count($attrTitle); $x++) { 
+                                if ($x !== 0 && $x !== count($attrTitle)-1) {
+                                    if ($x == count($attrTitle)-2) {
+                                        echo ${"attrTr$x"}[$i]." ";    
+                                    } else {
+                                        echo ${"attrTr$x"}[$i].", ";    
+                                    }
+                                }
+                            }
+                        echo " | ".array_values(array_unique($kelas))[0].") = </td>";
+                    
+                        echo "<td style='text-align:left;'>".array_count_values($kelas)[array_values(array_unique($kelas))[0]]."/".(count($data)-1)." * </td>";
+                    
+                    echo "</tr>";
+                    for ($a=1; $a < count(array_unique($kelas)); $a++) { 
+                        echo "<tr>
+                            <td style='text-align:left;'> P (";
+                            for ($x=0; $x < count($attrTitle); $x++) { 
+                                if ($x !== 0 && $x !== count($attrTitle)-1) {
+                                    if ($x == count($attrTitle)-2) {
+                                        echo ${"attrTr$x"}[$i]." ";    
+                                    } else {
+                                        echo ${"attrTr$x"}[$i].", ";    
+                                    }
+                                }
+                            }
+                        echo " | ".array_values(array_unique($kelas))[$a].") = </td>
+                            <td style='text-align:left;'>".array_count_values($kelas)[array_values(array_unique($kelas))[$a]]."/".(count($data)-1)." * </td>
+                        </tr>";
+                    }
+                }
+                
+        echo "</table>
+        ";
+
         
-        
-    } 
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+/*if(isset($_FILES["import_excel_dts"]["name"]) != '') {
+    
+}
+
+function hitung($file){
+    
+}*/
+
+
+
+
+
 ?>

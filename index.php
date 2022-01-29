@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="id">
 	<head>
@@ -31,13 +32,21 @@
 					<div>
 						<form method="post" id="import_excel_dtr" enctype="multipart/form-data" >
 							<input id="trainUp" style="background-color: #f5f8fa; color: #000; border-radius: 10px; padding: 5px 20px;border: none;outline: none; width: 400px; height: 25px; font-size: 12px; cursor: pointer; font-family: 'Poppins', sans-serif;" type="text" name="training_path" placeholder="Pilih Data Training" onclick="document.getElementById('training_up').click();"  readonly>
-							<!-- <input style="background-color: #009ef7; color: #fff; font-size: 12px; height: 35px; width: 100px;  border-radius: 10px; padding: 5px; border: none; cursor: pointer;" type="submit" name="training_up" value="Upload"> -->
-							<input style="display: none;" type="file" id="training_up" name="import_excel_dtr" value="Upload" onchange="changeTr();">
+							<input style="display: none;" type="file" id="training_up" name="import_excel_dtr" value="Upload" onchange="changeTr();"><br><br>
+							
+
+
+							<input id="testUp" style="background-color: #f5f8fa; color: #000; border-radius: 10px; padding: 5px 20px;border: none;outline: none; width: 400px; height: 25px; font-size: 12px; cursor: pointer; font-family: 'Poppins', sans-serif;" type="text" name="testing_path" placeholder="Pilih Data Testing" onclick="document.getElementById('testing_up').click();"  readonly>
+							<input style="display: none;" type="file" id="testing_up" name="import_excel_dts" value="Upload" onchange="changeTs();"><br><br>
+
+
+
 							<button type="submit" id="btnfile" style="background-color: #009ef7; color: #fff; font-size: 12px; height: 35px; width: 100px; border-radius: 10px; padding: 5px; border: none; cursor: pointer; display: inline-flex; justify-content: space-evenly; text-align: center;" >
 								<p style="margin-top: auto; margin-bottom: auto; font-family: 'Poppins', sans-serif;">Upload</p>
 
 								<svg style="margin-top: auto; margin-bottom: auto;" width="25" height="25" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg"> <path opacity="0.9" d="M10.2084 32.6667C6.73754 32.6667 4.08337 30.0125 4.08337 26.5417C4.08337 23.0709 6.73754 20.4167 10.2084 20.4167H10.4125C10.2084 19.8042 10.2084 18.9875 10.2084 18.375C10.2084 12.6584 14.7 8.16669 20.4167 8.16669C24.2959 8.16669 27.5625 10.2084 29.1959 13.2709C30.2167 12.6584 31.4417 12.25 32.6667 12.25C36.1375 12.25 38.7917 14.9042 38.7917 18.375C38.7917 19.1917 38.5875 19.8042 38.3834 20.4167C38.5875 20.4167 38.5875 20.4167 38.7917 20.4167C42.2625 20.4167 44.9167 23.0709 44.9167 26.5417C44.9167 30.0125 42.2625 32.6667 38.7917 32.6667H10.2084ZM16.3334 27.7667H32.6667L25.9292 21.0292C25.1125 20.2125 23.8875 20.2125 23.0709 21.0292L16.3334 27.7667Z" fill="white"/> <path d="M22.4584 27.7667V38.7917C22.4584 40.0167 23.275 40.8333 24.5 40.8333C25.725 40.8333 26.5417 40.0167 26.5417 38.7917V27.7667H22.4584Z" fill="white"/> </svg>
 							</button>
+
 						</form>
 						
 						<script type="text/javascript">
@@ -60,18 +69,16 @@
 			</div>
 			<span id="tbl_dt_train" style="display: none;"></span>
 			<div id="akhir" style="height: 20%;justify-content: center;display: none;">
-				<form method="post" id="import_excel_dts" enctype="multipart/form-data" style="margin: auto;">
-					<input id="testUp" style="background-color: #f5f8fa; color: #000; border-radius: 10px; padding: 5px 20px;border: none;outline: none; width: 400px; height: 25px; font-size: 12px; cursor: pointer; font-family: 'Poppins', sans-serif;" type="text" name="testing_path" placeholder="Pilih Data Testing" onclick="document.getElementById('testing_up').click();"  readonly>
-					<!-- <input style="background-color: #009ef7; color: #fff; font-size: 12px; height: 35px; width: 100px;  border-radius: 10px; padding: 5px; border: none; cursor: pointer;" type="submit" name="training_up" value="Upload"> -->
-					<input style="display: none;" type="file" id="testing_up" name="import_excel_dts" value="Upload" onchange="changeTs();">
+				<!-- <form method="post" id="import_excel_dts" enctype="multipart/form-data" style="margin: auto;">
+					
 					<button type="submit" id="btnfile" style="background-color: #009ef7; color: #fff; font-size: 12px; height: 35px; width: 100px; border-radius: 10px; padding: 5px; border: none; cursor: pointer; display: inline-flex; justify-content: space-evenly; text-align: center;" >
 						<p style="margin-top: auto; margin-bottom: auto; font-family: 'Poppins', sans-serif;">Upload</p>
 
 						<svg style="margin-top: auto; margin-bottom: auto;" width="25" height="25" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg"> <path opacity="0.9" d="M10.2084 32.6667C6.73754 32.6667 4.08337 30.0125 4.08337 26.5417C4.08337 23.0709 6.73754 20.4167 10.2084 20.4167H10.4125C10.2084 19.8042 10.2084 18.9875 10.2084 18.375C10.2084 12.6584 14.7 8.16669 20.4167 8.16669C24.2959 8.16669 27.5625 10.2084 29.1959 13.2709C30.2167 12.6584 31.4417 12.25 32.6667 12.25C36.1375 12.25 38.7917 14.9042 38.7917 18.375C38.7917 19.1917 38.5875 19.8042 38.3834 20.4167C38.5875 20.4167 38.5875 20.4167 38.7917 20.4167C42.2625 20.4167 44.9167 23.0709 44.9167 26.5417C44.9167 30.0125 42.2625 32.6667 38.7917 32.6667H10.2084ZM16.3334 27.7667H32.6667L25.9292 21.0292C25.1125 20.2125 23.8875 20.2125 23.0709 21.0292L16.3334 27.7667Z" fill="white"/> <path d="M22.4584 27.7667V38.7917C22.4584 40.0167 23.275 40.8333 24.5 40.8333C25.725 40.8333 26.5417 40.0167 26.5417 38.7917V27.7667H22.4584Z" fill="white"/> </svg>
 					</button>
-				</form>
+				</form> -->
 			</div>
-			<span id="tbl_dt_test" style="display: none;"><br><br><br><br>
+			<span id="tbl_dt_test" style="display: none;"></span><br><br><br><br>
 			
 				<!-- <div style="border:1px solid black;width: fit-content;padding: 15px;margin: auto;border-radius: 10px;">
 	                <h3 style="font-family: 'Poppins', sans-serif;font-weight: 500;">Jumlah dan probabilitas kelas pada data training</h3>
@@ -111,6 +118,25 @@
 	        		</table>
 	        	</div>
 	        </div> -->
+	        <!-- <div style="width: fit-content;padding: 15px;margin: auto;border-radius: 10px;">
+	        	<style type="text/css">.calcTesting, .calcTesting td, .calcTesting th {border: 1px solid black;font-size: 12px;font-weight: 500;padding: 0px 20px;}</style>
+	        	<table class="calcTesting" style="border: 1px solid black;border-collapse: collapse;min-width: 20%;">
+	        		<tr>
+	        			<td rowspan="3">Budiano</td>
+	        			<td style='text-align:left;'>P (SUPERVISOR, TUA, SANGAT BAIK, KURANG | PROMOSI) = </td>
+	        			<td style='text-align:left;'>15/33*3/15*4/15*8/15*11/15 </td>
+	        		</tr>
+	        		<tr>
+	        			<td style='text-align:left;'>P (SUPERVISOR, TUA, SANGAT BAIK, KURANG | MUTASI) = </td>
+	        			<td style='text-align:left;'>12/33*5/12*4/12*3/12*1/12 </td>
+	        		</tr>
+	        		<tr>
+	        			<td style='text-align:left;'>P (SUPERVISOR, TUA, SANGAT BAIK, KURANG | PHK) = </td>
+	        			<td style='text-align:left;'>6/33*2/6*2/6*3/6*3/6 </td>
+	        		</tr>
+	        	</table> -->
+
+	        </div>
 		</main>
 	</body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
@@ -153,7 +179,7 @@
 		      }
 		    })
 		  });
-		  $('#import_excel_dts').on('submit', function(event){
+		  /*$('#import_excel_dts').on('submit', function(event){
 		    event.preventDefault();
 		    $.ajax({
 		      url:"import.php",
@@ -177,7 +203,7 @@
 		        //$("html, body").animate({ scrollTop: "300px" });
 		      }
 		    })
-		  });
+		  });*/
 
 		});
 			
