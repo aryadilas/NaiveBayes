@@ -101,7 +101,12 @@ if(isset($_FILES["import_excel_dtr"]["name"]) != '') {
                                         }
                                     }
                                     echo "<tr><td style='text-align:left;'>".array_values(array_unique(${"attr$a"}))[$at]." | ".array_values(array_unique($kelas))[$kl]."</td><td>".$muncul."</td><td>".$muncul."/".array_count_values($kelas)[array_values(array_unique($kelas))[$kl]]."</td></tr>";
-                                    ${"p$a$at$kl"} = $muncul."/".array_count_values($kelas)[array_values(array_unique($kelas))[$kl]];
+                                    $atn = str_replace([' ','(',')'], '', $attrTitle[$a]);
+                                    $ai = str_replace([' ','(',')'], '', array_values(array_unique(${"attr$a"}))[$at]);
+                                    $ci = str_replace([' ','(',')'], '', array_values(array_unique($kelas))[$kl]);
+                                    //echo $ai."<br>"; 
+                                    ${"p$atn$ai$ci"} = $muncul."/".array_count_values($kelas)[array_values(array_unique($kelas))[$kl]];
+                                    //${"p$a$at$kl"} = $muncul."/".array_count_values($kelas)[array_values(array_unique($kelas))[$kl]];
                                     
                                 }
                             }
@@ -114,16 +119,7 @@ if(isset($_FILES["import_excel_dtr"]["name"]) != '') {
             }
         }
         echo "</div>";
-        for ($a=0; $a < count($attrTitle); $a++) { 
-            if ($a !== 0 && $a !== count($attrTitle)-1) {
-                for ($at=0; $at < count(array_unique(${"attr$a"})); $at++) { 
-                    for ($kl=0; $kl < count(array_unique($kelas)); $kl++) {
-                        var_dump(${"p$a$at$kl"});
-                    }
-                }
-            }
-            echo "<br>";
-        }
+
         /*echo "<div id=\"akhir\" style=\"height: 20%;justify-content: center;display: none;\">
                 <form method=\"post\" id=\"import_excel_dts\" enctype=\"multipart/form-data\" style=\"margin: auto;\">
                     <input id=\"testUp\" style=\"background-color: #f5f8fa; color: #000; border-radius: 10px; padding: 5px 20px;border: none;outline: none; width: 400px; height: 25px; font-size: 12px; cursor: pointer; font-family: 'Poppins', sans-serif;\" type=\"text\" name=\"testing_path\" placeholder=\"Pilih Data Testing\" onclick=\"document.getElementById('testing_up').click();\"  readonly>
@@ -210,6 +206,7 @@ if(isset($_FILES["import_excel_dtr"]["name"]) != '') {
         </div><br>";
         //var_dump($attrKl1);
         //session_start();
+        //var_dump($pMASAKERJAdlmtahunSUPERVISORPROMOSI);
         echo "
         <div style=\"width: fit-content;padding: 15px;margin: auto;border-radius: 10px;\">
                 <style type=\"text/css\">.calcTesting, .calcTesting td, .calcTesting th {border: 1px solid black;font-size: 12px;font-weight: 500;padding: 0px 20px;}</style>
@@ -218,6 +215,7 @@ if(isset($_FILES["import_excel_dtr"]["name"]) != '') {
                     echo "<tr>
                         <td rowspan='".count(array_unique($kelas))."'>".$frst_col[$i]."</td>
                         <td style='text-align:left;'> P (";
+                        $val = 0;
                             for ($x=0; $x < count($attrTitle); $x++) { 
                                 if ($x !== 0 && $x !== count($attrTitle)-1) {
                                     if ($x == count($attrTitle)-2) {
@@ -228,8 +226,20 @@ if(isset($_FILES["import_excel_dtr"]["name"]) != '') {
                                 }
                             }
                         echo " | ".array_values(array_unique($kelas))[0].") = </td>";
-                    
-                        echo "<td style='text-align:left;'>".array_count_values($kelas)[array_values(array_unique($kelas))[0]]."/".(count($data)-1)." * </td>";
+                        //${${"attrTr2"}[$i]}
+                        echo "<td style='text-align:left;'>".array_count_values($kelas)[array_values(array_unique($kelas))[0]]."/".(count($data)-1)." * ";
+                        for ($x=0; $x < count($attrTitle); $x++) { 
+                            if ($x !== 0 && $x !== count($attrTitle)-1) {
+                                if ($x == count($attrTitle)-2) {
+                                    $res = str_replace([' ','(',')'], '', $attrTitle[$x].${"attrTr$x"}[$i].array_values(array_unique($kelas))[0]);
+                                    echo ${"p$res"};
+                                } else {
+                                    $res = str_replace([' ','(',')'], '', $attrTitle[$x].${"attrTr$x"}[$i].array_values(array_unique($kelas))[0]);
+                                    echo ${"p$res"}." * ";
+                                }
+                            }
+                        }
+                        echo "</td>";
                     
                     echo "</tr>";
                     for ($a=1; $a < count(array_unique($kelas)); $a++) { 
@@ -242,10 +252,23 @@ if(isset($_FILES["import_excel_dtr"]["name"]) != '') {
                                     } else {
                                         echo ${"attrTr$x"}[$i].", ";    
                                     }
+
                                 }
                             }
                         echo " | ".array_values(array_unique($kelas))[$a].") = </td>
-                            <td style='text-align:left;'>".array_count_values($kelas)[array_values(array_unique($kelas))[$a]]."/".(count($data)-1)." * </td>
+                            <td style='text-align:left;'>".array_count_values($kelas)[array_values(array_unique($kelas))[$a]]."/".(count($data)-1)." * ";
+                        for ($x=0; $x < count($attrTitle); $x++) { 
+                            if ($x !== 0 && $x !== count($attrTitle)-1) {
+                                if ($x == count($attrTitle)-2) {
+                                    $res = str_replace([' ','(',')'], '', $attrTitle[$x].${"attrTr$x"}[$i].array_values(array_unique($kelas))[$a]);
+                                    echo ${"p$res"};
+                                } else {
+                                    $res = str_replace([' ','(',')'], '', $attrTitle[$x].${"attrTr$x"}[$i].array_values(array_unique($kelas))[$a]);
+                                    echo ${"p$res"}." * ";
+                                }
+                            }
+                        }
+                        echo "</td>
                         </tr>";
                     }
                 }
@@ -253,7 +276,7 @@ if(isset($_FILES["import_excel_dtr"]["name"]) != '') {
         echo "</table>
         ";
 
-        
+        //var_dump($attrTitle);
     }
 
 
