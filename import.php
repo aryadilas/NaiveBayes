@@ -426,7 +426,7 @@ if(isset($_FILES["import_excel_dtr"]["name"]) != '') {
 
 
 
-
+        
 
         for ($i=0; $i < count($dataT)-1; $i++) { 
             $val = 0;
@@ -453,9 +453,14 @@ if(isset($_FILES["import_excel_dtr"]["name"]) != '') {
             }
             $pvar = str_replace([' ','(',')'], '', $frst_col[$i].array_values(array_unique($kelas))[0]);
             ${"p$pvar"} = $pa;
-            //echo ${"p$pvar"}." ";
+
+            //echo $pvar." ";
+            //echo count(array_unique($kelas));
             for ($a=1; $a < count(array_unique($kelas)); $a++) { 
+
                 $pa = intval(array_count_values($kelas)[array_values(array_unique($kelas))[$a]])/intval((count($data)-1));
+                //echo array_values(array_unique($kelas))[$a]." ";
+
                 for ($x=0; $x < count($attrTitle); $x++) { 
                     if ($x !== 0 && $x !== count($attrTitle)-1) {
                         if ($x == count($attrTitle)-2) {
@@ -465,6 +470,7 @@ if(isset($_FILES["import_excel_dtr"]["name"]) != '') {
                                     $pa = $pa * (intval(substr(${"p$res"},0,$q))/intval(substr(${"p$res"},$q+1,strlen(${"p$res"}))));
                                 }
                             }
+                            //echo ${"p$res"};
                         } else {
                             $res = str_replace([' ','(',')'], '', $attrTitle[$x].${"attrTr$x"}[$i].array_values(array_unique($kelas))[$a]);
                             for ($q = 0;$q < strlen(${"p$res"});$q++){
@@ -472,13 +478,16 @@ if(isset($_FILES["import_excel_dtr"]["name"]) != '') {
                                     $pa = $pa * (intval(substr(${"p$res"},0,$q))/intval(substr(${"p$res"},$q+1,strlen(${"p$res"}))));
                                 }
                             }
+                            //echo ${"p$res"}." * ";
                         }
                     }
                 }
                 $pvar = str_replace([' ','(',')'], '', $frst_col[$i].array_values(array_unique($kelas))[$a]);
                 ${"p$pvar"} = $pa;
-
+                
+                
                 if (${"p$pvar"} == 0) {
+                    //echo $pRIANTOPHK;
                     echo "<p>Pada kasus <b>".$frst_col[$i]."</b>, dikarenakan ada nilai 0 sehingga menyebabkan ketidakakuratan perhitungan maka perlu diantisipasi dengan Metode Laplacian Correction</p><br>";
                     echo "<div style=\"width: fit-content;padding: 15px;margin: auto;border-radius: 10px;\">
                         <style type=\"text/css\">.calcTesting, .calcTesting td, .calcTesting th {border: 1px solid black;font-size: 12px;font-weight: 500;padding: 0px 20px;}</style>
@@ -490,40 +499,182 @@ if(isset($_FILES["import_excel_dtr"]["name"]) != '') {
                         <td>Sesudah</td>
                     </tr>";
 
-
+                    $newRes = "";
+                    $pa = intval(array_count_values($kelas)[array_values(array_unique($kelas))[$a]])/intval((count($data)-1));
+                    //echo $pa." ";
                     for ($x=0; $x < count($attrTitle); $x++) { 
+                        //echo ${"p$res"}." ";
                         if ($x !== 0 && $x !== count($attrTitle)-1) {
                             $res = str_replace([' ','(',')'], '', $attrTitle[$x].${"attrTr$x"}[$i].array_values(array_unique($kelas))[$a]);
-                            
+                            //echo $res." ";
                             echo "<tr>
                                 <td>".${"attrTr$x"}[$i]." | ".array_values(array_unique($kelas))[$a]."</td>
                                 <td>".${"p$res"}."</td>";
-                            for ($q = 0;$q < strlen(${"p$res"});$q++){
-                                if(substr(${"p$res"},$q,1) == '/'){
-                                    ${"p$res"} = strval(intval(substr(${"p$res"}, 0, $q))+1)."/".strval(intval(substr(${"p$res"}, $q+1, strlen(${"p$res"}))) + (count($attrTitle)-2));
-                                    //echo intval(substr(${"p$res"}, 0, $q))+1;
-                                    //echo intval(substr(${"p$res"}, $q+1, strlen(${"p$res"}))) + (count($attrTitle)-2);
+                                for ($q = 0;$q < strlen(${"p$res"});$q++){
+                                    if(substr(${"p$res"},$q,1) == '/'){
+                                        
+                                        ${"n$res"} = strval(intval(substr(${"p$res"}, 0, $q))+1)."/".strval(intval(substr(${"p$res"}, $q+1, strlen(${"p$res"}))) + (count($attrTitle)-2));
+                                        //${"p$res"} = strval(intval(substr(${"p$res"}, 0, $q)))."/".strval(intval(substr(${"p$res"}, $q, strlen(${"p$res"}))));
+
+                                        
+
+                                    }
                                 }
-                            }
-                            echo "<td>".${"p$res"}."</td>
+                                for ($q = 0;$q < strlen(${"n$res"});$q++){
+                                    if(substr(${"n$res"},$q,1) == '/'){
+                                        //$pa = $pa * (intval(substr(${"p$res"}, 0, $q))+1)/(intval(substr(${"p$res"}, $q+1, strlen(${"p$res"}))) + (count($attrTitle)-2));
+                                        $pa = $pa * (intval(substr(${"n$res"},0,$q))/intval(substr(${"n$res"},$q+1,strlen(${"n$res"}))));
+                                    }
+                                }
+                                //echo ${"n$res"}." ";
+                            //echo ${"p$res"}." ";
+                            //${"p$pvar"} = $pa;
+                            echo "<td>".${"n$res"}."</td>
                             </tr>";
+                            $newRes = $newRes." * ".${"n$res"};
                         }
                     }
 
-
+                    //$pvar = str_replace([' ','(',')'], '', $frst_col[$i].array_values(array_unique($kelas))[$a]);
+                    //echo $pvar;
+                    //${"p$pvar"} = $pa;
 
                     echo "</table></div><br>";
+                    echo "<p>Sehingga perhitungannya menjadi ";
+                    echo array_count_values($kelas)[array_values(array_unique($kelas))[$a]]."/".(count($data)-1).$newRes;
+                    echo " = ".$pa."</p>";
+                    $pvar = str_replace([' ','(',')'], '', $frst_col[$i].array_values(array_unique($kelas))[$a]);
+                    ${"p$pvar"} = $pa;
                 }
-                
+                //echo $pa."<br>";
+                //echo 1++;
             }
         }
                 
-        //echo "</table></div><br><br>";
+        //echo $pRIANTOPHK;
 
 
 
 
-        //var_dump($attrTitle);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        $i = 0;
+        foreach($dataT as $row) {
+            if ($i == 0) {
+                echo "<br><br><div style=\"display: flex; flex-direction: column; justify-content: space-evenly; height: 100%;\">
+                        <div style=\"width: 90%; margin: 5%;  border-radius: 15px; padding:10px;box-shadow: 0px 6px 19px -9px rgba(0,0,0,0.56);\">
+                            <h3 style=\"font-family: 'Poppins', sans-serif;font-weight: 500;\">Hasil Perhitungan</h3>
+                            <table style=\"width: 100%;font-size: 12px; font-weight: 500;border-collapse: collapse;\">
+                                <tr style=\"height: 35px; \">
+                                    <th>NO</th>";
+                                    for ($x=0; $x < count($row)-1; $x++) { 
+                                        echo "<th>".$row[$x]."</th>";
+                                        $attrTitle[$x] = $row[$x];
+                                    }
+                                    for ($x=0; $x < count(array_unique($kelas)); $x++) { 
+                                        echo "<th>P|".array_values(array_unique($kelas))[$x]."</th>";
+                                    }
+                            echo "<th>".$row[count($row)-1]."</th>";
+                            echo "</tr>";
+
+            } else {
+                if (($i % 2) == 0) {
+                    echo "<tr style=\"height: 35px;background-color: #f5f8fa;\">";    
+                } else {
+                    echo "<tr style=\"height: 35px;\">";
+                }
+                echo "<td>".$i."</td>";
+                for ($y=0; $y < count($row)-1; $y++) { 
+                    echo "<td>".$row[$y]."</td>";
+                    
+                }
+                $hasil = 0;
+                $max = 0;
+                for ($x=0; $x < count(array_unique($kelas)); $x++) { 
+                        $v = str_replace([' ','(',')'], '',$row[0].array_values(array_unique($kelas))[$x]);
+                        echo "<td>".round(${"p$v"},9)."</td>";
+                        $max = max($max,round(${"p$v"},9));
+                        if ($max == round(${"p$v"},9)) {
+                            $hasil = array_values(array_unique($kelas))[$x];
+                        }
+                        //$hasil = ;
+                        //echo "<td>".$pBUDIANOPROMOSI."</td>";
+                }
+                echo "<td>".$hasil."</td>";
+                echo "</tr>";
+            }
+            $i++;
+        }
+        echo "</table>
+            </div>
+        </div><br>";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 
