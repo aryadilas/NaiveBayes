@@ -263,13 +263,23 @@ if(isset($_FILES["import_excel_dtr"]["name"]) != '' && isset($_FILES["import_exc
         <div style=\"width: fit-content;padding: 15px;margin: auto;border-radius: 10px;\">
                 <style type=\"text/css\">.calcTesting, .calcTesting td, .calcTesting th {border: 1px solid black;font-size: 12px;font-weight: 500;padding: 0px 20px;}</style>
                 <table class=\"calcTesting\" style=\"border: 1px solid black;border-collapse: collapse;min-width: 20%;\">";
+                //loop untuk setiap data dalam file data Testing
                 for ($i=0; $i < count($dataT)-1; $i++) { 
+                    //menampilkan nama pegawai
+                    //dan looping setiap kelas
                     echo "<tr>
                         <td rowspan='".count(array_unique($kelas))."'>".$frst_col[$i]."</td>
                         <td style='text-align:left;'> P (";
-                        $val = 0;
+                            //looping setiap heading table
+                            //$attrTitle = Atribut Title / Judul Atribut
                             for ($x=0; $x < count($attrTitle); $x++) { 
+                                //kolom yang dianggap atribut adalah selain kolom 1 dan kolom terakhir
+                                //kolom 1 dianggap sebagai identitas, pada kasus pegawai adalah nama pegawai
+                                //kolom terakhir dianggap sebagai kelas
+                                //sehingga loop 6 kali,namun hanya 4 kali loop yang masuk kondisi ini
+                                //contoh pada kasus pegawai MASA KERJA,USIA,NILAI PELATIHAN,NILAI KERJA
                                 if ($x !== 0 && $x !== count($attrTitle)-1) {
+                                    //menampilkan nama masing masing atribut
                                     if ($x == count($attrTitle)-2) {
                                         echo ${"attrTr$x"}[$i]." ";    
                                     } else {
@@ -277,23 +287,19 @@ if(isset($_FILES["import_excel_dtr"]["name"]) != '' && isset($_FILES["import_exc
                                     }
                                 }
                             }
+                        //menampilkan kelas yang pertama
                         echo " | ".array_values(array_unique($kelas))[0].") = </td>";
-                        //${${"attrTr2"}[$i]}
                         echo "<td style='text-align:left;'>".array_count_values($kelas)[array_values(array_unique($kelas))[0]]."/".(count($data)-1)." * ";
                         $pa = intval(array_count_values($kelas)[array_values(array_unique($kelas))[0]])/intval((count($data)-1));
                         for ($x=0; $x < count($attrTitle); $x++) { 
                             if ($x !== 0 && $x !== count($attrTitle)-1) {
                                 if ($x == count($attrTitle)-2) {
                                     $res = str_replace([' ','(',')'], '', $attrTitle[$x].${"attrTr$x"}[$i].array_values(array_unique($kelas))[0]);
-
-
                                     for ($q = 0;$q < strlen(${"p$res"});$q++){
                                         if(substr(${"p$res"},$q,1) == '/'){
                                             $pa = $pa * (intval(substr(${"p$res"},0,$q))/intval(substr(${"p$res"},$q+1,strlen(${"p$res"}))));
                                         }
                                     }
-
-                                    //echo $pa;
                                     echo ${"p$res"};
                                 } else {
                                     $res = str_replace([' ','(',')'], '', $attrTitle[$x].${"attrTr$x"}[$i].array_values(array_unique($kelas))[0]);
@@ -303,7 +309,6 @@ if(isset($_FILES["import_excel_dtr"]["name"]) != '' && isset($_FILES["import_exc
                                             $pa = $pa * (intval(substr(${"p$res"},0,$q))/intval(substr(${"p$res"},$q+1,strlen(${"p$res"}))));
                                         }
                                     }
-                                    //echo $pa;
                                     echo ${"p$res"}." * ";
                                 }
                             }
@@ -311,7 +316,6 @@ if(isset($_FILES["import_excel_dtr"]["name"]) != '' && isset($_FILES["import_exc
                         $pvar = str_replace([' ','(',')'], '', $frst_col[$i].array_values(array_unique($kelas))[0]);
                         ${"p$pvar"} = $pa;
                         echo "</td>";
-                    
                     echo "</tr>";
                     for ($a=1; $a < count(array_unique($kelas)); $a++) { 
                         $pa = intval(array_count_values($kelas)[array_values(array_unique($kelas))[$a]])/intval((count($data)-1));
@@ -356,7 +360,6 @@ if(isset($_FILES["import_excel_dtr"]["name"]) != '' && isset($_FILES["import_exc
                         </tr>";
                     }
                 }
-                
         echo "</table></div>
         ";
 
@@ -457,13 +460,8 @@ if(isset($_FILES["import_excel_dtr"]["name"]) != '' && isset($_FILES["import_exc
             }
             $pvar = str_replace([' ','(',')'], '', $frst_col[$i].array_values(array_unique($kelas))[0]);
             ${"p$pvar"} = $pa;
-
-
-
-
             if (${"p$pvar"} == 0) {
                 $laplace = true;
-                    //echo $pRIANTOPHK;
                     echo "<p>Pada kasus <b>".$frst_col[$i]."</b>, dikarenakan ada nilai 0 sehingga menyebabkan ketidakakuratan perhitungan maka perlu diantisipasi dengan Metode Laplacian Correction</p><br>";
                     echo "<div style=\"width: fit-content;padding: 15px;margin: auto;border-radius: 10px;\">
                         <style type=\"text/css\">.calcTesting, .calcTesting td, .calcTesting th {border: 1px solid black;font-size: 12px;font-weight: 500;padding: 0px 20px;}</style>
@@ -474,47 +472,29 @@ if(isset($_FILES["import_excel_dtr"]["name"]) != '' && isset($_FILES["import_exc
                         <td>Sebelum</td>
                         <td>Sesudah</td>
                     </tr>";
-
                     $newRes = "";
                     $pa = intval(array_count_values($kelas)[array_values(array_unique($kelas))[0]])/intval((count($data)-1));
-                    //echo $pa." ";
                     for ($x=0; $x < count($attrTitle); $x++) { 
-                        //echo ${"p$res"}." ";
                         if ($x !== 0 && $x !== count($attrTitle)-1) {
                             $res = str_replace([' ','(',')'], '', $attrTitle[$x].${"attrTr$x"}[$i].array_values(array_unique($kelas))[0]);
-                            //echo $res." ";
                             echo "<tr>
                                 <td>".${"attrTr$x"}[$i]." | ".array_values(array_unique($kelas))[0]."</td>
                                 <td>".${"p$res"}."</td>";
                                 for ($q = 0;$q < strlen(${"p$res"});$q++){
                                     if(substr(${"p$res"},$q,1) == '/'){
-                                        
                                         ${"n$res"} = strval(intval(substr(${"p$res"}, 0, $q))+1)."/".strval(intval(substr(${"p$res"}, $q+1, strlen(${"p$res"}))) + (count($attrTitle)-2));
-                                        //${"p$res"} = strval(intval(substr(${"p$res"}, 0, $q)))."/".strval(intval(substr(${"p$res"}, $q, strlen(${"p$res"}))));
-
-                                        
-
                                     }
                                 }
                                 for ($q = 0;$q < strlen(${"n$res"});$q++){
                                     if(substr(${"n$res"},$q,1) == '/'){
-                                        //$pa = $pa * (intval(substr(${"p$res"}, 0, $q))+1)/(intval(substr(${"p$res"}, $q+1, strlen(${"p$res"}))) + (count($attrTitle)-2));
                                         $pa = $pa * (intval(substr(${"n$res"},0,$q))/intval(substr(${"n$res"},$q+1,strlen(${"n$res"}))));
                                     }
                                 }
-                                //echo ${"n$res"}." ";
-                            //echo ${"p$res"}." ";
-                            //${"p$pvar"} = $pa;
                             echo "<td>".${"n$res"}."</td>
                             </tr>";
                             $newRes = $newRes." * ".${"n$res"};
                         }
                     }
-
-                    //$pvar = str_replace([' ','(',')'], '', $frst_col[$i].array_values(array_unique($kelas))[$a]);
-                    //echo $pvar;
-                    //${"p$pvar"} = $pa;
-
                     echo "</table></div><br>";
                     echo "<p>Sehingga perhitungannya menjadi ";
                     echo array_count_values($kelas)[array_values(array_unique($kelas))[0]]."/".(count($data)-1).$newRes;
@@ -522,16 +502,6 @@ if(isset($_FILES["import_excel_dtr"]["name"]) != '' && isset($_FILES["import_exc
                     $pvar = str_replace([' ','(',')'], '', $frst_col[$i].array_values(array_unique($kelas))[0]);
                     ${"p$pvar"} = $pa;
                 }
-
-
-
-
-
-
-
-
-
-
             for ($a=1; $a < count(array_unique($kelas)); $a++) { 
                 $pa = intval(array_count_values($kelas)[array_values(array_unique($kelas))[$a]])/intval((count($data)-1));
                 for ($x=0; $x < count($attrTitle); $x++) { 
@@ -726,55 +696,10 @@ if(isset($_FILES["import_excel_dtr"]["name"]) != '' && isset($_FILES["import_exc
         echo "</table>
             </div>
         </div><br>";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
-/*if(isset($_FILES["import_excel_dts"]["name"]) != '') {
-    
-}
-
-function hitung($file){
-    
-}*/
 
 
 

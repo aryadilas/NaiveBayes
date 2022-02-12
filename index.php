@@ -2,10 +2,7 @@
 <!DOCTYPE html>
 <html lang="id">
 	<head>
-		<!-- <link rel="stylesheet" type="text/css" href="assets/css/style.css" /> -->
 		<link rel="icon" type="image/png" href="assets/images/thom.png" />
-		<!-- <link rel="apple-touch-icon" sizes="120x120" href="assets/image/apple-touch-icon-120x120-precomposed.png" />
-		<link rel="apple-touch-icon" sizes="152x152" href="assets/image/apple-touch-icon-152x152-precomposed.png" /> -->
     	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta http-equiv="Content-Type" content="Text/html; charset=utf-8" />
 			<title>Naive Bayes</title>
@@ -32,20 +29,12 @@
 						<form method="post" id="import_excel_dtr" enctype="multipart/form-data" >
 							<input id="trainUp" style="background-color: #f5f8fa; color: #000; border-radius: 10px; padding: 5px 20px;border: none;outline: none; width: 400px; height: 25px; font-size: 12px; cursor: pointer; font-family: 'Poppins', sans-serif;" type="text" name="training_path" placeholder="Pilih Data Training" onclick="document.getElementById('training_up').click();"  readonly>
 							<input style="display: none;" type="file" id="training_up" name="import_excel_dtr" value="Upload" onchange="changeTr();"><br><br>
-							
-
-
 							<input id="testUp" style="background-color: #f5f8fa; color: #000; border-radius: 10px; padding: 5px 20px;border: none;outline: none; width: 400px; height: 25px; font-size: 12px; cursor: pointer; font-family: 'Poppins', sans-serif;" type="text" name="testing_path" placeholder="Pilih Data Testing" onclick="document.getElementById('testing_up').click();"  readonly>
 							<input style="display: none;" type="file" id="testing_up" name="import_excel_dts" value="Upload" onchange="changeTs();"><br><br>
-
-
-
 							<button type="submit" id="btnfile" style="background-color: #009ef7; color: #fff; font-size: 12px; height: 35px; width: 100px; border-radius: 10px; padding: 5px; border: none; cursor: pointer; display: inline-flex; justify-content: space-evenly; text-align: center;" >
 								<p style="margin-top: auto; margin-bottom: auto; font-family: 'Poppins', sans-serif;">Upload</p>
-
 								<svg style="margin-top: auto; margin-bottom: auto;" width="25" height="25" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg"> <path opacity="0.9" d="M10.2084 32.6667C6.73754 32.6667 4.08337 30.0125 4.08337 26.5417C4.08337 23.0709 6.73754 20.4167 10.2084 20.4167H10.4125C10.2084 19.8042 10.2084 18.9875 10.2084 18.375C10.2084 12.6584 14.7 8.16669 20.4167 8.16669C24.2959 8.16669 27.5625 10.2084 29.1959 13.2709C30.2167 12.6584 31.4417 12.25 32.6667 12.25C36.1375 12.25 38.7917 14.9042 38.7917 18.375C38.7917 19.1917 38.5875 19.8042 38.3834 20.4167C38.5875 20.4167 38.5875 20.4167 38.7917 20.4167C42.2625 20.4167 44.9167 23.0709 44.9167 26.5417C44.9167 30.0125 42.2625 32.6667 38.7917 32.6667H10.2084ZM16.3334 27.7667H32.6667L25.9292 21.0292C25.1125 20.2125 23.8875 20.2125 23.0709 21.0292L16.3334 27.7667Z" fill="white"/> <path d="M22.4584 27.7667V38.7917C22.4584 40.0167 23.275 40.8333 24.5 40.8333C25.725 40.8333 26.5417 40.0167 26.5417 38.7917V27.7667H22.4584Z" fill="white"/> </svg>
 							</button>
-
 						</form>
 					</div>
 				</div>
@@ -88,48 +77,16 @@
 		      cache:false,
 		      processData:false,
 		      beforeSend:function(){
-		        //$('#import').attr('disabled', 'disabled');
-		        //$('#import').val('Importing...');
 		      },
 		      success:function(data)
 		      {
 		      	$('#tbl_dt_train').css("display", "block");
 		        $('#tbl_dt_train').html(data);
-		        //$('#import_excel_dtr')[0].reset();
 		        $('#akhir').css("display", "flex");
-		        //$('#import').attr('disabled', false);
-		        //$('#import').val('Import');
 		        $("html, body").animate({scrollTop: $('#awal').height()+50},1000);
-		        //$("html, body").animate({ scrollTop: "300px" });
 		      }
 		    })
 		  });
-		  /*$('#import_excel_dts').on('submit', function(event){
-		    event.preventDefault();
-		    $.ajax({
-		      url:"import.php",
-		      method:"POST",
-		      data:new FormData(this),
-		      contentType:false,
-		      cache:false,
-		      processData:false,
-		      beforeSend:function(){
-		        //$('#import').attr('disabled', 'disabled');
-		        //$('#import').val('Importing...');
-		      },
-		      success:function(data)
-		      {
-		      	$('#tbl_dt_test').css("display", "block");
-		        $('#tbl_dt_test').html(data);
-		        //$('#import_excel_dts')[0].reset();
-		        //$('#import').attr('disabled', false);
-		        //$('#import').val('Import');
-		        $("html, body").animate({scrollTop: $('#awal').height() + $('#tbl_dt_train').height()+50},1000);
-		        //$("html, body").animate({ scrollTop: "300px" });
-		      }
-		    })
-		  });*/
-
 		});
 			
 		
