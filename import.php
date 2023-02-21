@@ -78,7 +78,7 @@ if(isset($_FILES["import_excel_dtr"]["name"]) != '' && isset($_FILES["import_exc
             </div>
         </div><br>";
 
-//-------------------------Hitung jumlah dan probabilitas kelas pada data training
+//------------------------- Hitung jumlah dan probabilitas kelas pada data training
 
         echo "<div style=\"border:1px solid black;width: fit-content;padding: 20px;margin: auto;\">
                 <h3 style=\"font-family: 'Poppins', sans-serif;font-weight: 500;\">Jumlah dan probabilitas kelas pada data training</h3> 
@@ -105,7 +105,7 @@ if(isset($_FILES["import_excel_dtr"]["name"]) != '' && isset($_FILES["import_exc
             </div><br>
         ";
 
-//-------------------------Hitung Probabilitas kriteria atribut  dengan kelas yang sama
+//------------------------- Hitung Probabilitas kriteria atribut  dengan kelas yang sama
 
         echo "<div style=\"display: flex;justify-content: space-evenly;flex-direction: column;min-height: 100%;text-align:center;\">";
         echo "<h3 style=\"font-family: 'Poppins', sans-serif;font-weight: 500;\">Probabilitas kriteria atribut  dengan kelas yang sama</h3>";

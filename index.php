@@ -24,6 +24,7 @@
 			<div id="awal" style="display: flex; flex-direction: column; justify-content: space-evenly; height: 100%;">
 				<div style="margin: auto;"></div>
 				<div style="margin: auto;">
+					<img src="assets/images/thom.png" alt="">
 					<h3 style="font-family: 'Poppins', sans-serif;font-weight: 500;">NAIVE BAYES CLASSIFIER</h3><br>
 					<div>
 						<form method="post" id="import_excel_dtr" enctype="multipart/form-data" >
@@ -38,6 +39,9 @@
 						</form>
 					</div>
 				</div>
+				<a href="" download="Kasus.pdf" style="text-decoration: none;border: 1px solid #009ef7;width: 300px;margin: 2px auto;padding: 2px;color: #009ef7;border-radius: 10px;">Download Contoh Kasus</a>
+				<a href="1. contohDataTraining.xlsx" style="text-decoration: none;border: 1px solid #009ef7;width: 300px;margin: 2px auto;padding: 2px;color: #009ef7;border-radius: 10px;">Download Contoh Data Training</a>
+				<a href="1. contohDataTesting.xlsx" style="text-decoration: none;border: 1px solid #009ef7;width: 300px;margin: 2px auto;padding: 2px;color: #009ef7;border-radius: 10px;">Download Contoh Data Testing</a>
 				<div style="margin-top: auto; margin-bottom: 20px;">
 					<p style="font-size: 12px; font-weight: 500;">Naive Bayes - Evaluasi Pegawai</p>
 					<div style="font-size: 12px; font-weight: 500; display: flex; justify-content: space-evenly; ">
